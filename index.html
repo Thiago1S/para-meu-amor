@@ -14,7 +14,41 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.38;ba
 .wrap{width:min(920px,92%);margin:auto}
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:70px 0 110px}
 .eyebrow{font:.75rem/1.5 Arial,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--rose)}
-h1{font-weight:400;font-size:clamp(3rem,9vw,6.8rem);line-height:.98;margin:22px 0;color:#fff1f5;text-shadow:0 0 35px #a13e6844}
+h1 {
+  font-weight: 400;
+  font-size: clamp(3rem, 9vw, 6.8rem);
+  line-height: .98;
+  margin: 22px 0;
+  color: #fff1f5;
+  text-shadow: 0 0 35px #a13e6844;
+  animation: titleEntrance 1.2s ease-out both, titleGlow 4s ease-in-out 1.2s infinite;
+}
+
+@keyframes titleEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes titleGlow {
+  0%, 100% {
+    text-shadow: 0 0 25px #a13e6844;
+  }
+  50% {
+    text-shadow: 0 0 48px #e783adbb, 0 0 75px #a13e6844;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  h1 {
+    animation: none;
+  }
+}
 h1 em{color:var(--rose);font-weight:400}
 .hero p{max-width:570px;margin:22px auto;color:var(--muted);font-size:clamp(1.05rem,2.8vw,1.35rem);line-height:1.8}
 .heart{font-size:2rem;color:var(--rose);display:inline-block;animation:pulse 2s infinite}
@@ -83,6 +117,268 @@ footer span{color:var(--rose)}
   line-height: 1;
 }
 
+/* Entrada suave dos cartões ao rolar a página */
+.card.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.card.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card.reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ===== Player musical personalizado ===== */
+.music-card {
+  overflow: hidden;
+  position: relative;
+}
+
+.music-title {
+  font-weight: 400;
+  font-size: 1.7rem;
+  margin: 8px 0;
+  color: #fff1f5;
+}
+
+.music-subtitle {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.player-now {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 24px 0 18px;
+  padding: 16px;
+  border: 1px solid #593143;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #321b2b, #1c111b);
+}
+
+.player-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 62px;
+  height: 62px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #b76b91, #63334f);
+  color: #fff1f5;
+  font-size: 2rem;
+  box-shadow: 0 0 22px #b76b9133;
+}
+
+.player-track-info {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.player-label {
+  color: #d99ab6;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+}
+
+.player-track-info strong {
+  color: #fff1f5;
+  font-size: 0.96rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.player-heart {
+  color: #e7a0b2;
+  font-size: 1.2rem;
+}
+
+.player-controls {
+  padding: 8px 4px 22px;
+}
+
+.player-time {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: #c9aab9;
+  font: 0.78rem Arial, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.player-progress,
+.player-volume input {
+  display: block;
+  width: 100%;
+  margin: 0;
+  accent-color: #e7a0b2;
+  cursor: pointer;
+}
+
+.player-progress {
+  height: 5px;
+}
+
+.player-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin-top: 22px;
+}
+
+.player-buttons button {
+  cursor: pointer;
+  border: 0;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.player-buttons button:hover {
+  transform: scale(1.08);
+}
+
+.player-skip {
+  background: transparent;
+  color: #f5dce7;
+  font-size: 1.1rem;
+  padding: 10px;
+}
+
+.player-buttons .player-main-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #f1bbcf, #c7779c);
+  color: #291521;
+  font-size: 1.3rem;
+  box-shadow: 0 0 24px #d889ae44;
+}
+
+.player-volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 90px;
+  color: #d9a3bb;
+  font-size: 1rem;
+}
+
+.player-volume input {
+  min-width: 0;
+}
+
+.track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px;
+  text-align: left;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: #ffffff05;
+  color: #f5e4e9;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.track:hover {
+  background: #b76b9115;
+  border-color: #593143;
+}
+
+.track.active {
+  background: linear-gradient(100deg, #b76b9125, #ffffff05);
+  border-color: #985575;
+}
+
+.track-number {
+  color: #c9aab9;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.track-info {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.track-info strong {
+  font-size: 0.92rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.track-info > span {
+  color: #c9aab9;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.track-play {
+  color: #e7a0b2;
+  font-size: 0.95rem;
+}
+
+.track.active .track-number,
+.track.active .track-play {
+  color: #f1bbcf;
+}
+
+@media (max-width: 420px) {
+  .player-now {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .player-art {
+    width: 50px;
+    height: 50px;
+  }
+
+  .player-buttons {
+    gap: 14px;
+  }
+
+  .player-volume {
+    width: 66px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player-buttons button,
+  .track {
+    transition: none;
+  }
+}
+
+
 </style>
 </head>
 <body>
@@ -141,30 +437,71 @@ Feliz aniversário de namoro, Mor. Mesmo de longe, hoje eu escolho você. E esco
   <h2 class="section-title">A nossa trilha sonora</h2>
   <p class="subtitle">Músicas para ouvir enquanto lê a carta — e para lembrar que, mesmo longe, vocês compartilham algo bonito.</p>
   <div class="card music-card">
-    <div class="music-note">♫</div>
-    <h3 style="font-weight:400;font-size:1.6rem;margin:8px 0">Para a minha Mor</h3>
-    <p style="color:var(--muted);line-height:1.8">Nossa trilha sonora, tocando diretamente aqui no site. ❤️</p>
-    <div id="nowPlaying" style="color:var(--rose);font: .92rem/1.6 Arial,sans-serif;margin:16px 0 8px">Escolha uma música para começar</div>
-    <audio id="audioPlayer" controls preload="metadata" style="width:100%;margin:12px 0 18px;accent-color:#b65b82"></audio>
-    <div class="track-list" role="list" aria-label="Escolher música">
-      <button class="track" type="button" data-src="01-4me-4me.mp3" data-title="4Me 4Me" data-artist="Malcolm Todd">
-        <span class="track-number">01</span><span class="track-info"><strong>4Me 4Me</strong><span>Malcolm Todd</span></span><span class="track-play">▶</span>
-      </button>
-      <button class="track" type="button" data-src="02-malcolm-in-the-middle.mp3" data-title="Malcolm In The Middle" data-artist="Malcolm Todd">
-        <span class="track-number">02</span><span class="track-info"><strong>Malcolm In The Middle</strong><span>Malcolm Todd</span></span><span class="track-play">▶</span>
-      </button>
-      <button class="track" type="button" data-src="03-chest-pain-i-love.mp3" data-title="Chest Pain (I Love)" data-artist="Malcolm Todd">
-        <span class="track-number">03</span><span class="track-info"><strong>Chest Pain (I Love)</strong><span>Malcolm Todd</span></span><span class="track-play">▶</span>
-      </button>
-      <button class="track" type="button" data-src="04-get-you.mp3" data-title="Get You (feat. Kali Uchis)" data-artist="Daniel Caesar, Kali Uchis">
-        <span class="track-number">04</span><span class="track-info"><strong>Get You (feat. Kali Uchis)</strong><span>Daniel Caesar, Kali Uchis</span></span><span class="track-play">▶</span>
-      </button>
-      <button class="track" type="button" data-src="05-mirrors.mp3" data-title="Mirrors" data-artist="Justin Timberlake">
-        <span class="track-number">05</span><span class="track-info"><strong>Mirrors</strong><span>Justin Timberlake</span></span><span class="track-play">▶</span>
-      </button>
+  <div class="music-note">♫</div>
+
+  <h3 class="music-title">Para a minha Mor</h3>
+  <p class="music-subtitle">Nossa trilha sonora, tocando diretamente aqui no site. ❤️</p>
+
+  <div class="player-now">
+    <div class="player-art" aria-hidden="true">♫</div>
+    <div class="player-track-info">
+      <span class="player-label">TOCANDO AGORA</span>
+      <strong id="nowPlaying">Escolha uma música para começar</strong>
     </div>
-    <p class="hint">Se a próxima faixa não começar automaticamente, escolha-a na lista. A reprodução pode depender das configurações do navegador.</p>
+    <span class="player-heart" aria-hidden="true">♥</span>
   </div>
+
+  <audio id="audioPlayer" preload="metadata"></audio>
+
+  <div class="player-controls">
+    <div class="player-time">
+      <span id="currentTime">0:00</span>
+      <span id="duration">0:00</span>
+    </div>
+
+    <input
+      id="progressBar"
+      class="player-progress"
+      type="range"
+      min="0"
+      max="100"
+      value="0"
+      step="0.1"
+      aria-label="Progresso da música"
+    >
+
+    <div class="player-buttons">
+      <button id="previousTrack" class="player-skip" type="button" aria-label="Música anterior">|◀</button>
+      <button id="playPause" class="player-main-button" type="button" aria-label="Reproduzir música">▶</button>
+      <button id="nextTrack" class="player-skip" type="button" aria-label="Próxima música">▶|</button>
+
+      <div class="player-volume">
+        <span aria-hidden="true">♫</span>
+        <input id="volumeControl" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+      </div>
+    </div>
+  </div>
+
+  <div class="track-list" role="list" aria-label="Escolher música">
+    <button class="track" type="button" data-src="01-4me-4me.mp3" data-title="4Me 4Me" data-artist="Malcolm Todd">
+      <span class="track-number">01</span><span class="track-info"><strong>4Me 4Me</strong><span>Malcolm Todd</span></span><span class="track-play">▶</span>
+    </button>
+    <button class="track" type="button" data-src="02-malcolm-in-the-middle.mp3" data-title="Malcolm In The Middle" data-artist="Malcolm Todd">
+      <span class="track-number">02</span><span class="track-info"><strong>Malcolm In The Middle</strong><span>Malcolm Todd</span></span><span class="track-play">▶</span>
+    </button>
+    <button class="track" type="button" data-src="03-chest-pain-i-love.mp3" data-title="Chest Pain (I Love)" data-artist="Malcolm Todd">
+      <span class="track-number">03</span><span class="track-info"><strong>Chest Pain (I Love)</strong><span>Malcolm Todd</span></span><span class="track-play">▶</span>
+    </button>
+    <button class="track" type="button" data-src="04-get-you.mp3" data-title="Get You (feat. Kali Uchis)" data-artist="Daniel Caesar, Kali Uchis">
+      <span class="track-number">04</span><span class="track-info"><strong>Get You (feat. Kali Uchis)</strong><span>Daniel Caesar, Kali Uchis</span></span><span class="track-play">▶</span>
+    </button>
+    <button class="track" type="button" data-src="05-mirrors.mp3" data-title="Mirrors" data-artist="Justin Timberlake">
+      <span class="track-number">05</span><span class="track-info"><strong>Mirrors</strong><span>Justin Timberlake</span></span><span class="track-play">▶</span>
+    </button>
+  </div>
+
+  <p class="hint">Escolha uma faixa e aproveite nossa trilha sonora. ❤️</p>
+</div>
 </section>
 
 <div class="romantic-divider" aria-hidden="true"><span>♥</span></div>
@@ -196,25 +533,202 @@ updateCounter(); setInterval(updateCounter,1000);
 for(let i=0;i<14;i++){const el=document.createElement('div');el.className='float-heart';el.textContent=Math.random()>.5?'♥':'♡';el.style.left=(Math.random()*100)+'%';el.style.animationDelay=(Math.random()*8)+'s';el.style.animationDuration=(7+Math.random()*7)+'s';el.style.fontSize=(12+Math.random()*20)+'px';document.body.appendChild(el);}
 </script>
 <script>
-
 const audioPlayer = document.getElementById('audioPlayer');
 const nowPlaying = document.getElementById('nowPlaying');
 const tracks = Array.from(document.querySelectorAll('.track'));
+
+const currentTimeDisplay = document.getElementById('currentTime');
+const durationDisplay = document.getElementById('duration');
+const progressBar = document.getElementById('progressBar');
+const playPauseButton = document.getElementById('playPause');
+const previousButton = document.getElementById('previousTrack');
+const nextButton = document.getElementById('nextTrack');
+const volumeControl = document.getElementById('volumeControl');
+
+function formatTime(time) {
+  if (!Number.isFinite(time) || time < 0) return '0:00';
+
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60);
+
+  return `${minutes}:${String(seconds).padStart(2, '0')}`;
+}
+
+function updatePlayButton() {
+  playPauseButton.textContent = audioPlayer.paused ? '▶' : 'Ⅱ';
+
+  playPauseButton.setAttribute(
+    'aria-label',
+    audioPlayer.paused ? 'Reproduzir música' : 'Pausar música'
+  );
+
+  const activeTrack = tracks.find(track => track.classList.contains('active'));
+
+  tracks.forEach(track => {
+    const icon = track.querySelector('.track-play');
+
+    if (icon) {
+      icon.textContent =
+        track === activeTrack && !audioPlayer.paused ? 'Ⅱ' : '▶';
+    }
+  });
+}
+
+function loadTrack(index, autoplay = true) {
+  if (!tracks.length) return;
+
+  const trackIndex = (index + tracks.length) % tracks.length;
+  const track = tracks[trackIndex];
+
+  audioPlayer.src = track.dataset.src;
+
+  nowPlaying.textContent =
+    `${track.dataset.title} — ${track.dataset.artist}`;
+
+  tracks.forEach((item, i) => {
+    item.classList.toggle('active', i === trackIndex);
+  });
+
+  progressBar.value = 0;
+  currentTimeDisplay.textContent = '0:00';
+  durationDisplay.textContent = '0:00';
+
+  if (autoplay) {
+    audioPlayer.play().catch(() => {
+      nowPlaying.textContent =
+        `Pronto para tocar: ${track.dataset.title} — ${track.dataset.artist}. Aperte play.`;
+
+      updatePlayButton();
+    });
+  }
+
+  updatePlayButton();
+}
+
+// Escolher uma música pela lista
 tracks.forEach((track, index) => {
   track.addEventListener('click', () => {
-    audioPlayer.src = track.dataset.src;
-    nowPlaying.textContent = `Tocando: ${track.dataset.title} — ${track.dataset.artist}`;
-    tracks.forEach((item) => item.classList.remove('active'));
-    track.classList.add('active');
-    audioPlayer.play().catch(() => {
-      nowPlaying.textContent = `Pronto para tocar: ${track.dataset.title} — ${track.dataset.artist}. Aperte play no player.`;
-    });
+    const currentIndex = tracks.findIndex(item =>
+      item.classList.contains('active')
+    );
+
+    if (currentIndex === index) {
+      if (audioPlayer.paused) {
+        audioPlayer.play().catch(() => {});
+      } else {
+        audioPlayer.pause();
+      }
+    } else {
+      loadTrack(index);
+    }
   });
 });
-audioPlayer.addEventListener('ended', () => {
-  const current = tracks.findIndex((track) => track.classList.contains('active'));
-  if (current >= 0 && current < tracks.length - 1) tracks[current + 1].click();
+
+// Reproduzir ou pausar
+playPauseButton.addEventListener('click', () => {
+  const currentIndex = tracks.findIndex(track =>
+    track.classList.contains('active')
+  );
+
+  if (currentIndex === -1) {
+    loadTrack(0);
+  } else if (audioPlayer.paused) {
+    audioPlayer.play().catch(() => {});
+  } else {
+    audioPlayer.pause();
+  }
 });
+
+// Música anterior
+previousButton.addEventListener('click', () => {
+  const currentIndex = tracks.findIndex(track =>
+    track.classList.contains('active')
+  );
+
+  if (currentIndex === -1) {
+    loadTrack(0);
+  } else if (audioPlayer.currentTime > 3) {
+    audioPlayer.currentTime = 0;
+  } else {
+    loadTrack(currentIndex - 1);
+  }
+});
+
+// Próxima música
+nextButton.addEventListener('click', () => {
+  const currentIndex = tracks.findIndex(track =>
+    track.classList.contains('active')
+  );
+
+  loadTrack(currentIndex < 0 ? 0 : currentIndex + 1);
+});
+
+// Atualizar os ícones ao reproduzir ou pausar
+audioPlayer.addEventListener('play', updatePlayButton);
+audioPlayer.addEventListener('pause', updatePlayButton);
+
+// Atualizar duração e progresso
+audioPlayer.addEventListener('loadedmetadata', () => {
+  durationDisplay.textContent = formatTime(audioPlayer.duration);
+});
+
+audioPlayer.addEventListener('timeupdate', () => {
+  currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
+  durationDisplay.textContent = formatTime(audioPlayer.duration);
+
+  if (Number.isFinite(audioPlayer.duration) && audioPlayer.duration > 0) {
+    progressBar.value =
+      (audioPlayer.currentTime / audioPlayer.duration) * 100;
+  }
+});
+
+// Avançar ou voltar pela barra de progresso
+progressBar.addEventListener('input', () => {
+  if (Number.isFinite(audioPlayer.duration) && audioPlayer.duration > 0) {
+    audioPlayer.currentTime =
+      (Number(progressBar.value) / 100) * audioPlayer.duration;
+  }
+});
+
+// Controle de volume
+audioPlayer.volume = Number(volumeControl.value);
+
+volumeControl.addEventListener('input', () => {
+  audioPlayer.volume = Number(volumeControl.value);
+});
+
+// Passar automaticamente para a próxima faixa
+audioPlayer.addEventListener('ended', () => {
+  const currentIndex = tracks.findIndex(track =>
+    track.classList.contains('active')
+  );
+
+  if (currentIndex >= 0 && currentIndex < tracks.length - 1) {
+    loadTrack(currentIndex + 1);
+  } else {
+    updatePlayButton();
+  }
+});
+
+// Animação dos cartões ao rolar a página
+if ('IntersectionObserver' in window) {
+  const revealCards = document.querySelectorAll('.card');
+
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  revealCards.forEach(card => {
+    card.classList.add('reveal');
+    revealObserver.observe(card);
+  });
+}
+</script>
 
 </script>
 </body>
